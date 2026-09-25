@@ -29,7 +29,7 @@
 | Категория | Сервис | Статус |
 |-----------|--------|--------|
 | AI | ChatGPT, Claude, Grok, Copilot, Perplexity | ✅ Полный |
-| AI | Gemini | Проблемы на ПК ⚠️ |
+| AI | Gemini | ⚠️ Проблемы на ПК |
 | Media | YouTube | ⚠️ Частичный |
 | Social | Discord, Instagram | ⚠️ Частичный |
 | Cloud | AWS | ⚠️ Частичный |
@@ -89,7 +89,7 @@ sudo resolvectl flush-caches
 | Category | Service | Status |
 |----------|---------|--------|
 | AI | ChatGPT, Claude, Grok, Copilot, Perplexity | ✅ Full |
-| AI | Gemini | Doesnt work correctly on PC ⚠️ |
+| AI | Gemini | ⚠️ Doesnt work correctly on PC |
 | Media | YouTube | ⚠️ Partial |
 | Social | Discord, Instagram | ⚠️ Partial |
 | Cloud | AWS | ⚠️ Partial |
