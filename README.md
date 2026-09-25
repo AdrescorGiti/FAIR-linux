@@ -161,12 +161,12 @@ ui/
 
 ## 📄 Лицензия / License
 
-MIT — см. [LICENSE](LICENSE).
+GNU v3— см. [LICENSE](LICENSE).
 ```
 
 ## Пересборка
 
 ```bash
-cd /home/giti/dev/fair
+cd /home/giti/dev/fair-linux
 makepkg -si
 ```
