@@ -2,7 +2,7 @@
 
 [![Rust](https://img.shields.io/badge/Rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org/)
 [![Slint](https://img.shields.io/badge/Slint-1.17+-blue?style=for-the-badge)](https://slint.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-GNU_v3-green?style=for-the-badge)](LICENSE)
 [![Arch Linux](https://img.shields.io/badge/Arch_Linux-supported-1793D1?style=for-the-badge&logo=arch-linux)](https://archlinux.org/)
 
 **Обход блокировок AI-сервисов через `/etc/hosts`. Без VPN. Без регистрации. Без прокси.**
