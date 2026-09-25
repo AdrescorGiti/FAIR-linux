@@ -1,0 +1,44 @@
+import { ScrollView } from "std-widgets.slint";
+import { Theme } from "../theme.slint";
+
+export struct LogRow {
+    text: string,
+    level: int,
+}
+
+export component LogView inherits Rectangle {
+    in property <[LogRow]> rows;
+
+    background: Theme.log-bg;
+    border-radius: Theme.radius;
+    border-width: 1px;
+    border-color: Theme.stroke;
+    clip: true;
+
+    scroll := ScrollView {
+        width: 100%;
+        height: 100%;
+
+        VerticalLayout {
+            padding: 14px;
+            spacing: 6px;
+            alignment: start;
+
+            for row in root.rows: Text {
+                text: row.text;
+                color: row.level == 1
+                    ? Theme.accent
+                    : (row.level == 2
+                        ? Theme.danger
+                        : (row.level == 3 ? Theme.warn : Theme.info));
+                font-family: Theme.font-mono;
+                font-size: 12px;
+                wrap: word-wrap;
+            }
+        }
+    }
+
+    changed rows => {
+        scroll.content-y = 100000px;
+    }
+}

@@ -1,0 +1,139 @@
+import { Theme } from "theme.slint";
+import { StatusCard } from "components/status_card.slint";
+import { ActionButton } from "components/action_button.slint";
+import { LogView, LogRow } from "components/log_view.slint";
+
+export component AppWindow inherits Window {
+    title: "FAIR — Free AI In Russia";
+    icon: @image-url("../assets/fair-256.png");
+    width: 760px;
+    height: 600px;
+    background: Theme.bg;
+
+    in property <bool> active: false;
+    in property <bool> busy: false;
+    in property <string> status-text: "ОТКЛЮЧЕНО";
+    in property <string> status-detail: "доступ к AI закрыт";
+    in property <[LogRow]> entries;
+
+    callback enable();
+    callback disable();
+    callback check();
+
+    VerticalLayout {
+        padding: 22px;
+        spacing: Theme.gap;
+
+        Rectangle {
+            height: 60px;
+            border-radius: Theme.radius;
+            background: Theme.card;
+            border-width: 1px;
+            border-color: Theme.stroke;
+
+            HorizontalLayout {
+                padding-left: 14px;
+                padding-right: 14px;
+                spacing: 12px;
+                alignment: start;
+
+                Image {
+                    source: @image-url("../assets/fair.svg");
+                    width: 40px;
+                    height: 40px;
+                    y: (parent.height - self.height) / 2;
+                }
+
+                VerticalLayout {
+                    spacing: 1px;
+                    alignment: center;
+                    Text {
+                        text: "FAIR";
+                        color: Theme.text;
+                        font-family: Theme.font-sans;
+                        font-size: 24px;
+                        font-weight: 700;
+                        letter-spacing: 1px;
+                    }
+                    Text {
+                        text: "Free AI In Russia";
+                        color: Theme.muted;
+                        font-family: Theme.font-sans;
+                        font-size: 12px;
+                        letter-spacing: 0.5px;
+                    }
+                }
+            }
+        }
+
+        StatusCard {
+            active: root.active;
+            message: root.status-text;
+            detail: root.status-detail;
+        }
+
+        HorizontalLayout {
+            spacing: 10px;
+            ActionButton {
+                icon: @image-url("../assets/icons/power.svg");
+                label: "ВКЛЮЧИТЬ";
+                tone: Theme.accent;
+                busy: root.busy;
+                clicked => { root.enable(); }
+            }
+            ActionButton {
+                icon: @image-url("../assets/icons/ban.svg");
+                label: "ВЫКЛЮЧИТЬ";
+                tone: Theme.danger;
+                busy: root.busy;
+                clicked => { root.disable(); }
+            }
+            ActionButton {
+                icon: @image-url("../assets/icons/search.svg");
+                label: "ПРОВЕРИТЬ";
+                tone: Theme.info;
+                busy: root.busy;
+                clicked => { root.check(); }
+            }
+        }
+
+        LogView {
+            rows: root.entries;
+            vertical-stretch: 1;
+        }
+
+        Text {
+            text: "© FAIR Project · без VPN · без регистрации";
+            color: Theme.faint;
+            font-family: Theme.font-sans;
+            font-size: 11px;
+            horizontal-alignment: center;
+            letter-spacing: 0.4px;
+        }
+    }
+}
+
+export component FairTray inherits SystemTrayIcon {
+    icon: @image-url("../assets/fair-256.png");
+    tooltip: "FAIR — Free AI In Russia";
+
+    callback show-window();
+    callback hide-window();
+    callback quit-app();
+
+    Menu {
+        MenuItem {
+            title: "Показать окно";
+            activated => { show-window(); }
+        }
+        MenuItem {
+            title: "Скрыть окно";
+            activated => { hide-window(); }
+        }
+        MenuSeparator { }
+        MenuItem {
+            title: "Выход";
+            activated => { quit-app(); }
+        }
+    }
+}

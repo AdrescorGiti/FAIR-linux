@@ -1,0 +1,81 @@
+import { Theme } from "../theme.slint";
+
+export component StatusCard inherits Rectangle {
+    in property <bool> active;
+    in property <string> message;
+    in property <string> detail;
+
+    height: 68px;
+    border-radius: Theme.radius;
+    background: Theme.card;
+    border-width: 1px;
+    border-color: root.active ? Theme.accent.with-alpha(0.35) : Theme.stroke;
+    drop-shadow-color: Theme.shadow;
+    drop-shadow-blur: 14px;
+    drop-shadow-offset-y: 3px;
+    animate border-color { duration: 300ms; }
+
+    Rectangle {
+        x: Theme.pad + 4px;
+        y: (parent.height - self.height) / 2;
+        width: 28px;
+        height: 28px;
+        border-radius: self.width / 2;
+        background: transparent;
+        border-width: 0;
+
+        Rectangle {
+            width: 28px;
+            height: 28px;
+            border-radius: self.width / 2;
+            background: root.active ? Theme.accent : Theme.danger;
+            opacity: root.active
+                ? (pulse.value * 0.35 + 0.05)
+                : 0.0;
+            animate opacity { duration: 900ms; }
+        }
+
+        Rectangle {
+            x: 7px;
+            y: 7px;
+            width: 14px;
+            height: 14px;
+            border-radius: self.width / 2;
+            background: root.active ? Theme.accent : Theme.danger;
+        }
+    }
+
+    pulse := Timer {
+        interval: 900ms;
+        running: root.active;
+        triggered => {
+            pulse.value = pulse.value == 0 ? 1 : 0;
+        }
+        property <float> value: 0;
+    }
+
+    VerticalLayout {
+        x: Theme.pad + 44px;
+        width: parent.width - Theme.pad * 2 - 44px;
+        height: parent.height;
+        spacing: 3px;
+        alignment: center;
+
+        Text {
+            text: root.message;
+            color: root.active ? Theme.accent : Theme.danger;
+            font-family: Theme.font-sans;
+            font-size: 15px;
+            font-weight: 600;
+            vertical-alignment: center;
+        }
+
+        Text {
+            text: root.detail;
+            color: Theme.muted;
+            font-family: Theme.font-sans;
+            font-size: 12px;
+            vertical-alignment: center;
+        }
+    }
+}

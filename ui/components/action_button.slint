@@ -1,0 +1,61 @@
+import { Theme } from "../theme.slint";
+
+export component ActionButton inherits Rectangle {
+    in property <image> icon;
+    in property <string> label;
+    in property <color> tone: Theme.info;
+    in property <bool> busy: false;
+    callback clicked();
+
+    height: 48px;
+    border-radius: Theme.radius;
+    border-width: 1px;
+    border-color: tap.has-hover ? tone : Theme.stroke;
+    background: tap.pressed
+        ? tone.with-alpha(0.18)
+        : (tap.has-hover ? tone.with-alpha(0.10) : Theme.card);
+    drop-shadow-color: Theme.shadow;
+    drop-shadow-blur: tap.has-hover ? 10px : 0px;
+    drop-shadow-offset-y: 2px;
+    opacity: root.busy ? 0.45 : 1.0;
+    animate background { duration: 120ms; }
+    animate border-color { duration: 120ms; }
+    animate opacity { duration: 150ms; }
+    animate drop-shadow-blur { duration: 150ms; }
+
+    HorizontalLayout {
+        padding-left: 14px;
+        padding-right: 14px;
+        spacing: 10px;
+        alignment: center;
+
+        Rectangle {
+            width: 20px;
+            height: 20px;
+            background: transparent;
+
+            Image {
+                source: root.icon;
+                width: 20px;
+                height: 20px;
+                y: (parent.height - self.height) / 2;
+            }
+        }
+
+        Text {
+            text: root.label;
+            color: root.tone;
+            font-family: Theme.font-sans;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            vertical-alignment: center;
+            height: parent.height;
+        }
+    }
+
+    tap := TouchArea {
+        enabled: !root.busy;
+        clicked => { root.clicked(); }
+    }
+}

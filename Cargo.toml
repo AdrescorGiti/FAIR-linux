@@ -1,0 +1,19 @@
+[package]
+name = "fair"
+version = "1.0.0"
+edition = "2021"
+description = "Free AI In Russia — обход блокировок AI-сервисов через /etc/hosts"
+license = "MIT"
+
+[dependencies]
+slint = "1.17"
+tokio = { version = "1", features = ["full"] }
+
+[build-dependencies]
+slint-build = "1.17"
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
+codegen-units = 1
