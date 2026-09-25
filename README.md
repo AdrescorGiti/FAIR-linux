@@ -103,8 +103,8 @@ sudo resolvectl flush-caches
 **Requirements:** Arch Linux, `cargo`, `nslookup` (package `bind`), `curl`.
 
 ```bash
-git clone https://github.com/fair-project/fair.git
-cd fair
+git clone https://github.com/AdrescorGiti/FAIR-linux.git
+cd fair-linux
 makepkg -si
 sudo fair
 ```
